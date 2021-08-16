@@ -58,3 +58,14 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Add
+Assets/EasyOpenVROverlayForUnity/
+Assets/EasyOpenVROverlayForUnity.meta
+Assets/EasyOpenVRUtil/
+Assets/EasyOpenVRUtil.meta
+Assets/StandaloneFileBrowser/
+Assets/StandaloneFileBrowser.meta
+Assets/SteamVR/
+Assets/SteamVR.meta
+Assets/uOSC/
+Assets/uOSC.meta
