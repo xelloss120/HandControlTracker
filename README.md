@@ -8,5 +8,5 @@ SteamVR
 uOSC  
   
 ※1.codeをzipでDLして追加  
-※2.EasyOpenVROverlayForUnity\EasyOpenVROverlayForUnity.csのline715:の戻り値はnullに変更  
+※2.EasyOpenVROverlayForUnity\EasyOpenVROverlayForUnity.csのline715の戻り値はnullに変更  
 ※3.EasyOpenVRUtil\sample\PositionManagerScript.csのline61:setPosition();はコメントアウト

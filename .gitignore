@@ -59,6 +59,7 @@ sysinfo.txt
 crashlytics-build.properties
 
 # Add
+_exe/
 Assets/EasyOpenVROverlayForUnity/
 Assets/EasyOpenVROverlayForUnity.meta
 Assets/EasyOpenVRUtil/
