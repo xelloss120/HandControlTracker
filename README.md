@@ -1,9 +1,6 @@
 # HandControlTracker
 手のコントローラでトラッカー動かすやつ
 
-## 注意
-現在は試作品からの清書中なので実装は未完了です。
-
 ## 別途追加する物一覧
 EasyOpenVROverlayForUnity※1※2  
 EasyOpenVRUtil※1※3  
