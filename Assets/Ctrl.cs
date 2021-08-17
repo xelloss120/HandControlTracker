@@ -1,0 +1,37 @@
+﻿using UnityEngine;
+using UnityEngine.UI;
+
+public class Ctrl : MonoBehaviour
+{
+    [SerializeField] Image Hips;
+    [SerializeField] Image LegLeft;
+    [SerializeField] Image LegRight;
+
+    public void OnClickHips()
+    {
+        Hips.color = new Color(1, 0.5f, 0.5f);
+        LegLeft.color = new Color(1, 1, 1);
+        LegRight.color = new Color(1, 1, 1);
+    }
+
+    public void OnClickLegLeft()
+    {
+        Hips.color = new Color(1, 1, 1);
+        LegLeft.color = new Color(1, 0.5f, 0.5f);
+        LegRight.color = new Color(1, 1, 1);
+    }
+
+    public void OnClickLegRight()
+    {
+        Hips.color = new Color(1, 1, 1);
+        LegLeft.color = new Color(1, 1, 1);
+        LegRight.color = new Color(1, 0.5f, 0.5f);
+    }
+
+    public void OnClickNone()
+    {
+        Hips.color = new Color(1, 1, 1);
+        LegLeft.color = new Color(1, 1, 1);
+        LegRight.color = new Color(1, 1, 1);
+    }
+}
