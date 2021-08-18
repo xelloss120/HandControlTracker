@@ -22,78 +22,53 @@ public class Pose : MonoBehaviour
     [SerializeField] Text PoseText;
     [SerializeField] Button LearnButton;
 
-    void Ready()
+    public void OnClickPose()
     {
-        // 頭と垂直軸だけ合わせたダミーを用意
+        // 頭と垂直軸だけ合わせたダミーを用意してコレを親とした位置と回転を適用
         HeadDummy.position = Head.position;
         HeadDummy.eulerAngles = new Vector3(0, Head.eulerAngles.y, 0);
 
-        // 腰と足をダミーの子に設定
-        Hips.parent = HeadDummy;
-        LegLeft.parent = HeadDummy;
-        LegRight.parent = HeadDummy;
-    }
+        Hips.position = HeadDummy.TransformPoint(HipsPos);
+        Hips.rotation = HeadDummy.rotation * HipsRot;
 
-    public void OnClickPose()
-    {
-        Ready();
-        Invoke("DelayMethodPose1", 0.1f);
-    }
+        LegLeft.position = HeadDummy.TransformPoint(LegLeftPos);
+        LegLeft.rotation = HeadDummy.rotation * LegLeftRot;
 
-    void DelayMethodPose1()
-    {
-        // ダミーの子にした状態でMarkerを経由してVMTオブジェクトに遅延処理で反映
-        Hips.localPosition = HipsPos;
-        Hips.localRotation = HipsRot;
+        LegRight.position = HeadDummy.TransformPoint(LegRightPos);
+        LegRight.rotation = HeadDummy.rotation * LegRightRot;
 
-        LegLeft.localPosition = LegLeftPos;
-        LegLeft.localRotation = LegLeftRot;
-
-        LegRight.localPosition = LegRightPos;
-        LegRight.localRotation = LegRightRot;
-
+        // Marker経由でVMTオブジェクトへ遅延処理で適用
         Hips.gameObject.SetActive(true);
         LegLeft.gameObject.SetActive(true);
         LegRight.gameObject.SetActive(true);
 
-        Invoke("DelayMethodPose2", 0.1f);
+        Invoke("DelayMethod", 0.1f);
     }
 
-    void DelayMethodPose2()
+    void DelayMethod()
     {
         // VMTオブジェクトへの反映が完了したのでMarkerオブジェクトを無効化
         Hips.gameObject.SetActive(false);
         LegLeft.gameObject.SetActive(false);
         LegRight.gameObject.SetActive(false);
-
-        // ハンドコントローラでの操作に備えて親子関係を解除
-        Hips.parent = null;
-        LegLeft.parent = null;
-        LegRight.parent = null;
     }
 
     public void OnClickLearn()
     {
-        Ready();
-        Invoke("DelayMethodLearn", 0.1f);
-    }
+        // 頭と垂直軸だけ合わせたダミーを用意してコレを親とした位置と回転を記憶
+        HeadDummy.position = Head.position;
+        HeadDummy.eulerAngles = new Vector3(0, Head.eulerAngles.y, 0);
+        
+        var rotation = Quaternion.Inverse(HeadDummy.rotation);
 
-    void DelayMethodLearn()
-    {
-        // ダミーの子にした状態が反映されたMarkerの位置と回転を覚えてから
-        HipsPos = Hips.localPosition;
-        HipsRot = Hips.localRotation;
+        HipsPos = HeadDummy.InverseTransformPoint(Hips.position);
+        HipsRot = rotation * Hips.rotation;
 
-        LegLeftPos = LegLeft.localPosition;
-        LegLeftRot = LegLeft.localRotation;
+        LegLeftPos = HeadDummy.InverseTransformPoint(LegLeft.position);
+        LegLeftRot = rotation * LegLeft.rotation;
 
-        LegRightPos = LegRight.localPosition;
-        LegRightRot = LegRight.localRotation;
-
-        // ハンドコントローラでの操作に備えて親子関係を解除
-        Hips.parent = null;
-        LegLeft.parent = null;
-        LegRight.parent = null;
+        LegRightPos = HeadDummy.InverseTransformPoint(LegRight.position);
+        LegRightRot = rotation * LegRight.rotation;
     }
 
     public void ChangedInputField()
