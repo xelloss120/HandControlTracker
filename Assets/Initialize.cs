@@ -24,24 +24,26 @@ public class Initialize : MonoBehaviour
 
     public void Init()
     {
-        // 頭から垂直軸だけ合わせてオフセットを付けた位置に腰を配置
-        var pos = Head.transform.position;
-        pos.y -= OffsetHeadHips.Value;
-        pos += Head.transform.forward * OffsetHipsDepth.Value;
+        // 頭の向き（垂直軸のみ）を適用
+        var direction = new Vector3(0, Head.transform.eulerAngles.y, 0);
+        VMT_0.transform.eulerAngles = direction;
+        VMT_1.transform.eulerAngles = direction;
+        VMT_2.transform.eulerAngles = direction;
 
-        VMT_0.transform.position = pos;
-        VMT_0.transform.eulerAngles = new Vector3(0, Head.transform.eulerAngles.y, 0);
+        // 頭のオフセットを適用
+        VMT_0.transform.position = Head.transform.position;
+        VMT_0.transform.position -= Vector3.up * OffsetHeadHips.Value;
+        VMT_0.transform.position += VMT_0.transform.forward * OffsetHipsDepth.Value;
 
-        // 足は腰の子にして位置と回転を遅延処理で適用
-        VMT_1.transform.parent = VMT_0.transform;
-        VMT_2.transform.parent = VMT_0.transform;
+        // 足のオフセットを適用
+        VMT_1.transform.position = Head.transform.position;
+        VMT_1.transform.position -= (Vector3.up * OffsetHeadHips.Value) + (Vector3.up * OffsetHipsLeg.Value);
+        VMT_1.transform.position += VMT_0.transform.forward * OffsetLegDepth.Value;
 
-        // 腰から回転なしにオフセットを付けた位置に足を配置
-        VMT_1.transform.localPosition = new Vector3(-OffsetLegWidth.Value / 2, -OffsetHipsLeg.Value, OffsetLegDepth.Value);
-        VMT_2.transform.localPosition = new Vector3(+OffsetLegWidth.Value / 2, -OffsetHipsLeg.Value, OffsetLegDepth.Value);
+        VMT_2.transform.position = VMT_1.transform.position;
 
-        VMT_1.transform.localRotation = Quaternion.identity;
-        VMT_2.transform.localRotation = Quaternion.identity;
+        VMT_1.transform.position -= VMT_0.transform.right * OffsetLegWidth.Value / 2;
+        VMT_2.transform.position += VMT_0.transform.right * OffsetLegWidth.Value / 2;
 
         Invoke("DelayMethod1", 0.1f);
     }
@@ -49,13 +51,10 @@ public class Initialize : MonoBehaviour
     void DelayMethod1()
     {
         // ここでOVR Advanced Settingsのオフセットを吸収したい
-        // 足は腰の子になっているので腰だけで吸収する
-        // 遅延処理とした結果、VMTとOpenVRで取得したトラッカーの差をOVR Advanced Settingsのオフセットとする
-        // この差を再度VMTに設定して、さらにもう一度遅延処理
-
-        var pos = VMT_0.transform.position;
-        pos += pos - Tracker0.transform.position;
-        VMT_0.transform.position = pos;
+        // VMTオブジェクトと取得したトラッカーオブジェクトの差をOVR Advanced Settingsのオフセットとする
+        VMT_0.transform.position += VMT_0.transform.position - Tracker0.transform.position;
+        VMT_1.transform.position += VMT_1.transform.position - Tracker1.transform.position;
+        VMT_2.transform.position += VMT_2.transform.position - Tracker2.transform.position;
 
         Invoke("DelayMethod2", 0.1f);
     }
@@ -75,9 +74,5 @@ public class Initialize : MonoBehaviour
         Marker0.GetComponent<Marker>().Offset = VMT_0.transform.position - Tracker0.transform.position;
         Marker1.GetComponent<Marker>().Offset = VMT_1.transform.position - Tracker1.transform.position;
         Marker2.GetComponent<Marker>().Offset = VMT_2.transform.position - Tracker2.transform.position;
-
-        // 足の親を腰からnullにして解除
-        VMT_1.transform.parent = null;
-        VMT_2.transform.parent = null;
     }
 }
