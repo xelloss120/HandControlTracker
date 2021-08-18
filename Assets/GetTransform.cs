@@ -51,14 +51,17 @@ public class GetTransform : MonoBehaviour
 
         if (head != null && handL != null && handR != null)
         {
+            // 頭と手が取得できている場合
             var center = (handL.position + handR.position) / 2;
             if (Vector3.Distance(center, head.position) < 0.1f &&
                 Vector3.Distance(handL.position, handR.position) < 0.4f)
             {
+                // 頭に両手を寄せている場合
                 TimeSpan ts = DateTime.Now - DateTime;
                 if (ts.Seconds > 1)
                 {
-                    // 両手を頭に寄せた状態が、前回から1秒以上経過していれば、オーバーレイの表示を切り替え
+                    // 前回から1秒以上経過している場合
+                    // オーバーレイの表示を切り替え
                     EasyOpenVROverlayForUnity.show = !EasyOpenVROverlayForUnity.show;
                 }
                 DateTime = DateTime.Now;
