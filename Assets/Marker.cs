@@ -6,6 +6,8 @@ public class Marker : MonoBehaviour
 
     public Vector3 Offset;
 
+    public bool Active = false;
+
     void Update()
     {
         VMT.position = transform.position + Offset;

@@ -29,10 +29,18 @@ public class Hand : MonoBehaviour
 
     EasyOpenVRUtil EasyOpenVRUtil;
 
+    Marker MarkerHips;
+    Marker MarkerLegLeft;
+    Marker MarkerLegRight;
+
     void Start()
     {
         EasyOpenVRUtil = new EasyOpenVRUtil();
         EasyOpenVRUtil.StartOpenVR();
+
+        MarkerHips = Hips.GetComponent<Marker>();
+        MarkerLegLeft = LegLeft.GetComponent<Marker>();
+        MarkerLegRight = LegRight.GetComponent<Marker>();
     }
 
     void Update()
@@ -66,17 +74,17 @@ public class Hand : MonoBehaviour
             }
 
             // コントローラボタン押下時からの移動量と回転量を有効な対象へ反映
-            if (Hips.gameObject.activeInHierarchy)
+            if (MarkerHips.Active)
             {
                 Hips.position = PositionHips - (Position - transform.position);
                 Hips.rotation = (transform.rotation * Quaternion.Inverse(Rotation)) * RotationHips;
             }
-            if (LegLeft.gameObject.activeInHierarchy)
+            if (MarkerLegLeft.Active)
             {
                 LegLeft.position = PositionLegLeft - (Position - transform.position);
                 LegLeft.rotation = (transform.rotation * Quaternion.Inverse(Rotation)) * RotationLegLeft;
             }
-            if (LegRight.gameObject.activeInHierarchy)
+            if (MarkerLegRight.Active)
             {
                 LegRight.position = PositionLegRight - (Position - transform.position);
                 LegRight.rotation = (transform.rotation * Quaternion.Inverse(Rotation)) * RotationLegRight;

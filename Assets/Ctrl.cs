@@ -7,9 +7,9 @@ public class Ctrl : MonoBehaviour
     [SerializeField] Image LegLeft;
     [SerializeField] Image LegRight;
 
-    [SerializeField] GameObject MarkerHips;
-    [SerializeField] GameObject MarkerLegLeft;
-    [SerializeField] GameObject MarkerLegRight;
+    [SerializeField] Marker MarkerHips;
+    [SerializeField] Marker MarkerLegLeft;
+    [SerializeField] Marker MarkerLegRight;
 
     public void OnClickHips()
     {
@@ -17,9 +17,9 @@ public class Ctrl : MonoBehaviour
         LegLeft.color = new Color(1, 1, 1);
         LegRight.color = new Color(1, 1, 1);
 
-        MarkerHips.SetActive(true);
-        MarkerLegLeft.SetActive(false);
-        MarkerLegRight.SetActive(false);
+        MarkerHips.Active = true;
+        MarkerLegLeft.Active = false;
+        MarkerLegRight.Active = false;
     }
 
     public void OnClickLegLeft()
@@ -28,9 +28,9 @@ public class Ctrl : MonoBehaviour
         LegLeft.color = new Color(1, 0.5f, 0.5f);
         LegRight.color = new Color(1, 1, 1);
 
-        MarkerHips.SetActive(false);
-        MarkerLegLeft.SetActive(true);
-        MarkerLegRight.SetActive(false);
+        MarkerHips.Active = false;
+        MarkerLegLeft.Active = true;
+        MarkerLegRight.Active = false;
     }
 
     public void OnClickLegRight()
@@ -39,9 +39,9 @@ public class Ctrl : MonoBehaviour
         LegLeft.color = new Color(1, 1, 1);
         LegRight.color = new Color(1, 0.5f, 0.5f);
 
-        MarkerHips.SetActive(false);
-        MarkerLegLeft.SetActive(false);
-        MarkerLegRight.SetActive(true);
+        MarkerHips.Active = false;
+        MarkerLegLeft.Active = false;
+        MarkerLegRight.Active = true;
     }
 
     public void OnClickNone()
@@ -50,8 +50,8 @@ public class Ctrl : MonoBehaviour
         LegLeft.color = new Color(1, 1, 1);
         LegRight.color = new Color(1, 1, 1);
 
-        MarkerHips.SetActive(false);
-        MarkerLegLeft.SetActive(false);
-        MarkerLegRight.SetActive(false);
+        MarkerHips.Active = false;
+        MarkerLegLeft.Active = false;
+        MarkerLegRight.Active = false;
     }
 }

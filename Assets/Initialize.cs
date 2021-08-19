@@ -45,6 +45,11 @@ public class Initialize : MonoBehaviour
         VMT_1.transform.position -= VMT_0.transform.right * OffsetLegWidth.Value / 2;
         VMT_2.transform.position += VMT_0.transform.right * OffsetLegWidth.Value / 2;
 
+        // MarkerのOffsetを更新したいので一旦無効化
+        Marker0.GetComponent<Marker>().enabled = false;
+        Marker1.GetComponent<Marker>().enabled = false;
+        Marker2.GetComponent<Marker>().enabled = false;
+
         Invoke("DelayMethod1", 0.1f);
     }
 
@@ -74,5 +79,10 @@ public class Initialize : MonoBehaviour
         Marker0.GetComponent<Marker>().Offset = VMT_0.transform.position - Tracker0.transform.position;
         Marker1.GetComponent<Marker>().Offset = VMT_1.transform.position - Tracker1.transform.position;
         Marker2.GetComponent<Marker>().Offset = VMT_2.transform.position - Tracker2.transform.position;
+
+        // MarkerのOffsetを更新したので有効化
+        Marker0.GetComponent<Marker>().enabled = true;
+        Marker1.GetComponent<Marker>().enabled = true;
+        Marker2.GetComponent<Marker>().enabled = true;
     }
 }
