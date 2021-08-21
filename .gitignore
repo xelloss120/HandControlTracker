@@ -59,7 +59,12 @@ sysinfo.txt
 crashlytics-build.properties
 
 # Add
-_exe/
+_exe/HandControlTracker_Data/
+_exe/MonoBleedingEdge/
+_exe/HandControlTracker.exe
+_exe/HandControlTracker.zip
+_exe/UnityCrashHandler64.exe
+_exe/UnityPlayer.dll
 Assets/EasyOpenVROverlayForUnity/
 Assets/EasyOpenVROverlayForUnity.meta
 Assets/EasyOpenVRUtil/
